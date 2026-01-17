@@ -4,7 +4,9 @@ import HeroContent from "../components/hero/HeroContent";
 import ScrollIndicator from "../components/hero/ScrollIndicator";
 import AboutSection from "../components/about/AboutSection";
 import SkillsSection from "../components/skills/SkillsSection";
-
+import ExperienceSection from "../components/experience/ExperienceSection";
+import ContactSection from "../components/contact/ContactSection";
+import Footer from "../components/footer/Footer";
 export default function Home() {
   return (
     <>
@@ -16,6 +18,9 @@ export default function Home() {
 
       <AboutSection />
       <SkillsSection />
+      <ExperienceSection />
+            <ContactSection />
+                        <Footer />
     </>
   );
 }
