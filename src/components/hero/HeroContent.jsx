@@ -32,4 +32,3 @@ export default function HeroContent() {
     </main>
   );
 }
-// invite bang
