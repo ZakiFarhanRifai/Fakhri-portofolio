@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import SkillCard from "./SkillCard";
 
 import bgDesktop from "../../assets/bg-skills.svg";
@@ -24,59 +25,74 @@ const CODING_SKILLS = [
   { name: "Python", level: "Basic", icon: pythonIcon, width: 168 },
 ];
 
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 32 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
 export default function SkillsSection() {
   return (
-    <section className="relative mt-[249px] overflow-hidden">
-      {/* DESKTOP BG */}
+    <section id="skills" className="relative mt-20 overflow-hidden">
+      {/* BACKGROUND */}
       <img
         src={bgDesktop}
-        alt="Skills Background"
-        className="absolute inset-0 hidden h-full w-full object-cover lg:block"
+        className="absolute inset-0 hidden object-cover w-full h-full lg:block"
         draggable={false}
       />
-
-      {/* MOBILE / TABLET BG */}
       <img
         src={bgMobile}
-        alt="Skills Background Mobile"
-        className="absolute inset-0 block h-full w-full object-cover lg:hidden"
+        className="absolute inset-0 object-cover w-full h-full lg:hidden"
         draggable={false}
       />
 
-      <div
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.3 }}
         className="
           relative z-10
           mx-auto max-w-[1440px]
-
           py-[120px]
           px-[120px]
-
           max-lg:px-6
           max-lg:py-20
         "
       >
-        <h2
+        {/* TITLE */}
+        <motion.h2
+          variants={fadeUp}
           className="
             mb-[58px]
             text-right
             text-[64px]
             font-bold
             text-white
-
             max-lg:text-center
             max-lg:text-[48px]
-
             max-sm:text-[32px]
           "
         >
           What I’ve Learned
-        </h2>
+        </motion.h2>
 
+        {/* CARDS */}
         <div className="flex flex-col gap-[48px]">
           <SkillCard title="Design" skills={DESIGN_SKILLS} gap={124} />
           <SkillCard title="Coding" skills={CODING_SKILLS} gap={152} />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

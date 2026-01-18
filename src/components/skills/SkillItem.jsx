@@ -1,10 +1,13 @@
+import { motion } from "framer-motion";
+
 export default function SkillItem({ icon, name, level, width }) {
   return (
-    <div
-      className="
-          flex items-start gap-[21px]
-          max-lg:w-full
-        "
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      className="flex items-start gap-[21px] max-lg:w-full"
       style={{ width }}
     >
       <img
@@ -22,6 +25,6 @@ export default function SkillItem({ icon, name, level, width }) {
           {level}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }

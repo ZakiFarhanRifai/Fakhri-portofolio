@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ExperienceSection() {
   const [activeTab, setActiveTab] = useState("internship");
@@ -36,39 +37,46 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section className="bg-white py-24">
-<div className="container mx-auto px-4 md:px-16 lg:px-24">
-
-
+    <section className="py-24 bg-white">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.3 }}
+        variants={{
+          hidden: {},
+          show: { transition: { staggerChildren: 0.15 } },
+        }}
+        className="container px-4 mx-auto md:px-16 lg:px-24"
+      >
         {/* TITLE */}
-        <h2 className="
-          mb-16
-          text-4xl
-          font-bold
-          text-black
-          text-center
-          md:text-left
-        ">
+        <motion.h2
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, ease: "easeOut" },
+            },
+          }}
+          className="mb-16 text-4xl font-bold text-center text-black md:text-left"
+        >
           Experience
-        </h2>
+        </motion.h2>
 
         {/* WRAPPER */}
-        <div className="relative">
-
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, ease: "easeOut" },
+            },
+          }}
+          className="relative"
+        >
           {/* TOGGLE */}
-          <div
-            className="
-              absolute
-              -top-12
-              left-1/2
-              -translate-x-1/2
-              flex
-
-              md:left-auto
-              md:right-0
-              md:translate-x-0
-            "
-          >
+          <div className="absolute flex -translate-x-1/2 -top-12 left-1/2 md:left-auto md:right-0 md:translate-x-0">
             <button
               onClick={() => setActiveTab("education")}
               className={`px-6 py-3 text-sm font-medium border border-b-0 transition
@@ -97,43 +105,57 @@ export default function ExperienceSection() {
           </div>
 
           {/* CARD */}
-          <div className="rounded-xl rounded-tr-none border bg-white p-6 pt-14 shadow-md md:p-10">
+          <div className="p-6 bg-white border shadow-md rounded-xl pt-14 md:p-10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="relative space-y-10"
+              >
+                {/* LINE */}
+                <div className="absolute top-0 w-px h-full bg-black left-2" />
 
-            {/* TIMELINE */}
-            <div className="relative space-y-10">
+                {data[activeTab].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{
+                      duration: 0.45,
+                      ease: "easeOut",
+                      delay: index * 0.08,
+                    }}
+                    className="relative flex gap-6"
+                  >
+                    {/* DOT */}
+                    <div className="relative z-10 w-4 h-4 mt-2 bg-black rounded-full" />
 
-              {/* LINE */}
-              <div className="absolute left-2 top-0 h-full w-px bg-black" />
+                    {/* CONTENT */}
+                    <div className="flex flex-col w-full gap-2 md:flex-row md:justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-black">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {item.role}
+                        </p>
+                      </div>
 
-              {data[activeTab].map((item, index) => (
-                <div key={index} className="relative flex gap-6">
-
-                  {/* DOT */}
-                  <div className="relative z-10 mt-2 h-4 w-4 rounded-full bg-black" />
-
-                  {/* CONTENT */}
-                  <div className="flex w-full flex-col gap-2 md:flex-row md:justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold text-black">
-                        {item.title}
-                      </h3>
-                      <p className="text-sm text-gray-600">
-                        {item.role}
-                      </p>
+                      <span className="text-sm text-gray-600 md:text-right">
+                        {item.date}
+                      </span>
                     </div>
-
-                    <span className="text-sm text-gray-600 md:text-right">
-                      {item.date}
-                    </span>
-                  </div>
-
-                </div>
-              ))}
-            </div>
-
+                  </motion.div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

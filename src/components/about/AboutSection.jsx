@@ -2,7 +2,7 @@ import AboutContent from "./AboutContent";
 
 export default function AboutSection() {
   return (
-    <section className="mt-[249px] mb-[242px] flex justify-center bg-white">
+    <section id="about" className="flex justify-center mb-20 bg-white mt-28">
       <AboutContent />
     </section>
   );
