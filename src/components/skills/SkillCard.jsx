@@ -1,30 +1,47 @@
-export default function SkillCard({ title, skills }) {
+import SkillItem from "./SkillItem";
+
+export default function SkillCard({ title, skills, gap }) {
   return (
-    <div className="w-full rounded-[12px] bg-white px-[48px] py-[36px] shadow-md">
-      <div className="mb-[32px] flex items-center gap-6">
-        <span className="text-[36px] font-semibold leading-[125%] text-black">
+    <div
+      className="
+        w-full
+        rounded-[12px]
+        bg-white
+        shadow-md
+
+        px-[120px]
+        py-[45px]
+
+        max-lg:px-8
+        max-lg:py-8
+      "
+    >
+      {/* TITLE */}
+      <div className="mb-[46px] flex items-center gap-6 max-lg:mb-8">
+        <span className="text-[36px] font-semibold leading-[125%] text-black max-sm:text-[24px]">
           {title}
         </span>
-        <span className="h-px w-[160px] bg-black/30" />
+        <span className="h-px w-[160px] bg-black/30 max-sm:hidden" />
       </div>
 
-      <div className="grid grid-flow-col auto-cols-max gap-x-[48px]">
-        {skills.map((skill) => (
-          <div key={skill.name} className="flex items-start gap-[21px]">
-            <img
-              src={skill.icon}
-              alt={skill.name}
-              className="h-[64px] w-[64px] select-none"
-              draggable={false}
-            />
+      {/* SKILLS */}
+      <div
+        className="
+          flex items-start
 
-            <div>
-              <p className="text-[24px] font-normal text-black">{skill.name}</p>
-              <p className="text-[24px] font-normal text-black/55">
-                {skill.level}
-              </p>
-            </div>
-          </div>
+          max-lg:flex-wrap
+          max-lg:gap-y-8
+        "
+        style={{ gap }}
+      >
+        {skills.map((skill) => (
+          <SkillItem
+            key={skill.name}
+            icon={skill.icon}
+            name={skill.name}
+            level={skill.level}
+            width={skill.width}
+          />
         ))}
       </div>
     </div>
