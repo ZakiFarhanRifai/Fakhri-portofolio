@@ -1,31 +1,5 @@
-<<<<<<< HEAD
-import { FaWhatsapp, FaInstagram, FaTwitter } from "react-icons/fa";
-
-export default function ContactSection() {
-  return (
-    <section className="relative min-h-screen bg-black py-24">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 items-start gap-16 md:grid-cols-2">
-          {/* LEFT */}
-          <div
-            className="
-              mt-10
-              flex flex-col
-              items-center
-              text-center
-
-              md:mt-16
-              md:items-start
-              md:text-left
-
-              lg:mt-20
-              lg:pl-16
-            "
-          >
-            <span className="mb-4 flex items-center gap-4 text-sm text-gray-400">
-=======
 import { useState } from "react";
-import { FaWhatsapp, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaWhatsapp, FaInstagram, FaTwitter } from "react-icons/fa";
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -72,22 +46,14 @@ ${form.message}
     <section className="relative min-h-screen py-24 bg-black">
       <div className="container px-4 mx-auto md:px-16">
         <div className="grid items-start grid-cols-1 gap-16 md:grid-cols-2">
-
           {/* LEFT */}
           <div className="flex flex-col items-center mt-10 text-center md:mt-16 lg:mt-20 md:items-start md:text-left">
             <span className="flex items-center gap-4 mb-4 text-sm text-gray-400">
->>>>>>> 39f04b1310b784abb98f729a77af987991e67b6d
               Get In Touch
               <span className="w-20 h-px bg-gray-600" />
             </span>
 
-<<<<<<< HEAD
-            <h2 className="mb-10 text-7xl font-bold text-white">Contact Me</h2>
-=======
-            <h2 className="mb-10 font-bold text-white text-7xl">
-              Contact Me
-            </h2>
->>>>>>> 39f04b1310b784abb98f729a77af987991e67b6d
+            <h2 className="mb-10 font-bold text-white text-7xl">Contact Me</h2>
 
             <div className="flex justify-center gap-4 md:justify-start">
               <SocialIcon
@@ -113,7 +79,6 @@ ${form.message}
           {/* RIGHT */}
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
-
               <Input
                 name="name"
                 placeholder="Name"
@@ -141,26 +106,11 @@ ${form.message}
               <div className="flex justify-center md:justify-end">
                 <button
                   type="submit"
-<<<<<<< HEAD
-                  className="
-                    rounded-full
-                    bg-white
-                    px-8
-                    py-3
-                    text-sm
-                    font-medium
-                    text-black
-                    transition
-                    hover:bg-gray-200
-                  "
-=======
                   className="px-8 py-3 text-sm font-medium text-black transition bg-white rounded-full hover:bg-gray-200"
->>>>>>> 39f04b1310b784abb98f729a77af987991e67b6d
                 >
                   Send Message
                 </button>
               </div>
-
             </form>
           </div>
         </div>
@@ -171,47 +121,6 @@ ${form.message}
 
 /* ================= SUB COMPONENTS ================= */
 
-<<<<<<< HEAD
-const Input = ({ placeholder }) => (
-  <input
-    type="text"
-    placeholder={placeholder}
-    className="
-      w-full
-      rounded-md
-      border
-      border-white
-      bg-transparent
-      px-4
-      py-3
-      text-sm
-      text-white
-      outline-none
-      placeholder:text-white
-    "
-  />
-);
-
-const Textarea = ({ placeholder }) => (
-  <textarea
-    rows={7}
-    placeholder={placeholder}
-    className="
-      w-full
-      resize-none
-      rounded-md
-      border
-      border-white
-      bg-transparent
-      px-4
-      py-3
-      text-sm
-      text-white
-      outline-none
-      placeholder:text-white
-    "
-  />
-=======
 const Input = ({ name, placeholder, value, onChange, error }) => (
   <div className="space-y-1">
     <input
@@ -245,7 +154,6 @@ const Textarea = ({ name, placeholder, value, onChange, error }) => (
     />
     {error && <p className="text-xs text-red-500">{error}</p>}
   </div>
->>>>>>> 39f04b1310b784abb98f729a77af987991e67b6d
 );
 
 const SocialIcon = ({ href, icon, color }) => (
