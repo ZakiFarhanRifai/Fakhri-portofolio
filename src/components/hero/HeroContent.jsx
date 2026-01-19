@@ -78,7 +78,7 @@ export default function HeroContent() {
       {/* DESCRIPTION */}
       <motion.p
         variants={item}
-        className="max-w-xl mb-10 text-sm  sm:text-base md:text-lg text-white/80"
+        className="max-w-xl mb-10 text-sm sm:text-base md:text-lg text-white/80"
       >
         Creating clean, visually stunning, and functional
         <br className="hidden sm:block" />
