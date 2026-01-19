@@ -5,14 +5,12 @@ import letsTalk from "../../assets/let's-talk.svg";
 const container = {
   hidden: {},
   show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   show: {
     opacity: 1,
     y: 0,
@@ -27,12 +25,8 @@ export default function HeroContent() {
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious();
-
-    if (latest > prev && latest > 80) {
-      // scroll ke bawah → hilang
-      setVisible(false);
-    } else if (latest < prev && !visible) {
-      // scroll ke atas → trigger ulang animasi
+    if (latest > prev && latest > 80) setVisible(false);
+    else if (latest < prev && !visible) {
       setVisible(true);
       setKey((k) => k + 1);
     }
@@ -44,54 +38,72 @@ export default function HeroContent() {
       variants={container}
       initial="hidden"
       animate={visible ? "show" : "hidden"}
-      className="
-        px-6 text-center
-        pt-[280px] pb-[300px]
-        max-lg:pt-40 max-lg:pb-32
-        max-sm:pt-28 max-sm:pb-24
-      "
+      className="relative flex flex-col items-center justify-center w-full max-w-full min-h-screen px-6 overflow-hidden text-center "
     >
+      {/* SUBTITLE */}
       <motion.p
         variants={item}
-        className="mb-4 text-[48px] font-light tracking-[0.13em] text-white max-lg:text-[32px] max-sm:text-[20px]"
+        className="
+          mb-4
+          text-base
+          sm:text-lg
+          md:text-xl
+          tracking-[0.18em]
+          sm:tracking-[0.22em]
+          text-white
+        "
       >
         HI, I AM FAKHRI
       </motion.p>
 
+      {/* TITLE */}
       <motion.h1
         variants={item}
-        className="mb-6 text-[96px] font-bold tracking-[0.13em] text-white max-lg:text-[64px] max-sm:text-[36px]"
+        className="
+          mb-6
+          font-bold
+          tracking-[0.08em]
+          sm:tracking-[0.12em]
+          md:tracking-[0.15em]
+          text-4xl
+          sm:text-5xl
+          md:text-6xl
+          lg:text-7xl
+          text-white
+        "
       >
         UI/UX DESIGNER
       </motion.h1>
 
+      {/* DESCRIPTION */}
       <motion.p
         variants={item}
-        className="mb-10 mx-auto max-w-[600px] text-[24px] font-light text-white/80 max-lg:text-[18px] max-sm:text-[14px]"
+        className="max-w-xl mb-10 text-sm  sm:text-base md:text-lg text-white/80"
       >
         Creating clean, visually stunning, and functional
-        <br className="max-sm:hidden" />
+        <br className="hidden sm:block" />
         design for all your needs
       </motion.p>
 
+      {/* BUTTON */}
       <motion.button
         variants={{
-          hidden: { opacity: 0, scale: 0.95 },
+          hidden: { opacity: 0, scale: 0.96 },
           show: {
             opacity: 1,
             scale: 1,
             transition: { duration: 0.5, ease: "easeOut" },
           },
         }}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
-        className="select-none"
+        className="w-full max-w-xs overflow-hidden sm:max-w-sm"
       >
         <img
           src={letsTalk}
           alt="Let's Talk"
           draggable={false}
-          className="w-[222px] max-lg:w-[180px] max-sm:w-[140px]"
+          className="w-full h-auto"
         />
       </motion.button>
     </motion.main>

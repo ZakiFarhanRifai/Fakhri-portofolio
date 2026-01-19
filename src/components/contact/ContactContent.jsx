@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaWhatsapp, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -10,13 +11,14 @@ export default function ContactSection() {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newErrors = {};
@@ -25,21 +27,49 @@ export default function ContactSection() {
     if (!form.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
+    if (Object.keys(newErrors).length !== 0) return;
 
-    if (Object.keys(newErrors).length === 0) {
-      const whatsappMessage = `
-Halo Kak.
-Saya ${form.name}
-Email Saya ${form.email}
+    setLoading(true);
 
-${form.message}
-      `;
+    try {
+      const payload = {
+        access_key: "0a3c86e1-2a16-40e3-83e7-05440ce2f9fd",
+        name: form.name,
+        email: form.email,
+        message: form.message,
+      };
 
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=6285799830623&text=${encodeURIComponent(
-        whatsappMessage
-      )}`;
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      }).then((res) => res.json());
 
-      window.open(whatsappUrl, "_blank");
+      if (res.success) {
+        Swal.fire({
+          title: "Success Send Message",
+          icon: "success",
+          draggable: true,
+        });
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        Swal.fire({
+          title: "Failed",
+          text: "Message failed to send",
+          icon: "error",
+        });
+      }
+    } catch {
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong",
+        icon: "error",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,10 +108,20 @@ ${form.message}
               Contact Me
             </h2>
 
+            {/* SOCIAL ICONS */}
             <div className="flex justify-center gap-4 md:justify-start">
-              <SocialIcon href="https://wa.me/6285799830623" icon={<FaWhatsapp size={20} />} color="text-[#25D366]" />
-              <SocialIcon href="https://instagram.com/username" icon={<FaInstagram size={20} />} color="text-[#E1306C]" />
-              <SocialIcon href="https://x.com/username" icon={<FaTwitter size={18} />} color="text-black" />
+              <SocialIcon
+                href="https://wa.me/6281414257998"
+                icon={<FaWhatsapp size={20} />}
+              />
+              <SocialIcon
+                href="https://instagram.com/username"
+                icon={<FaInstagram size={20} />}
+              />
+              <SocialIcon
+                href="https://x.com/username"
+                icon={<FaXTwitter size={18} />}
+              />
             </div>
           </motion.div>
 
@@ -98,15 +138,15 @@ ${form.message}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <AnimatedField delay={0}>
-                <Input {...{ name: "name", placeholder: "Name", value: form.name, onChange: handleChange, error: errors.name }} />
+                <Input name="name" placeholder="Name" value={form.name} onChange={handleChange} error={errors.name} />
               </AnimatedField>
 
               <AnimatedField delay={0.1}>
-                <Input {...{ name: "email", placeholder: "Email", value: form.email, onChange: handleChange, error: errors.email }} />
+                <Input name="email" placeholder="Email" value={form.email} onChange={handleChange} error={errors.email} />
               </AnimatedField>
 
               <AnimatedField delay={0.2}>
-                <Textarea {...{ name: "message", placeholder: "Message", value: form.message, onChange: handleChange, error: errors.message }} />
+                <Textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} error={errors.message} />
               </AnimatedField>
 
               <motion.div
@@ -118,9 +158,10 @@ ${form.message}
               >
                 <button
                   type="submit"
-                  className="px-8 py-3 text-sm font-medium text-black transition bg-white rounded-full hover:bg-gray-200 hover:scale-105 active:scale-95"
+                  disabled={loading}
+                  className="px-8 py-3 text-sm font-medium text-black transition bg-white rounded-full hover:bg-gray-200 hover:scale-105 active:scale-95 disabled:opacity-50"
                 >
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </motion.div>
             </form>
@@ -176,14 +217,15 @@ const Textarea = ({ name, placeholder, value, onChange, error }) => (
   </div>
 );
 
-const SocialIcon = ({ href, icon, color }) => (
+/* 🔥 FIXED SOCIAL ICON STYLE */
+const SocialIcon = ({ href, icon }) => (
   <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     whileHover={{ scale: 1.15 }}
     whileTap={{ scale: 0.95 }}
-    className={`flex h-11 w-11 items-center justify-center rounded-full bg-white ${color}`}
+    className="flex items-center justify-center text-black transition bg-white rounded-full shadow-md h-11 w-11 hover:shadow-lg"
   >
     {icon}
   </motion.a>

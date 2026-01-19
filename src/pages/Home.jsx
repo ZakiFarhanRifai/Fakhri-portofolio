@@ -23,10 +23,10 @@ export default function Home() {
       <HeroLayout>
         <Navbar />
         <HeroContent />
+        <ScrollIndicator />
       </HeroLayout>
 
-      {/* 🔥 TRANSISI */}
-      <ScrollIndicator />
+
 
       <AboutSection />
       <SkillsSection />

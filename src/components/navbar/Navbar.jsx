@@ -1,5 +1,10 @@
-import { useState } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 
 const NAV_ITEMS = [
   { label: "About", id: "about" },
@@ -11,57 +16,62 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const { scrollY } = useScroll();
+  const [activeId, setActiveId] = useState(null);
 
+  const { scrollY } = useScroll();
+  const lastScroll = useRef(0);
+
+  // ===== SCROLL ANIMATION (HANYA LG) =====
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const prev = scrollY.getPrevious();
+    if (window.innerWidth < 1024) {
+      setVisible(true);
+      return;
+    }
+
+    const prev = lastScroll.current;
 
     if (latest > prev && latest > 120) {
-      setVisible(false); // scroll down
+      setVisible(false);
     } else if (latest < prev) {
-      setVisible(true); // scroll up
+      setVisible(true);
     }
+
+    lastScroll.current = latest;
   });
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveId(id);
     setOpen(false);
   };
 
   return (
     <>
-      {/* ================= DESKTOP NAVBAR ================= */}
+      {/* ================= DESKTOP NAVBAR (LG ONLY) ================= */}
       <AnimatePresence>
         {visible && (
           <motion.header
-            initial={{ opacity: 0, y: -12, scale: 0.95 }}
+            initial={{ opacity: 0, y: -14, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            className="absolute right-[120px] top-[86px] z-20 hidden lg:block"
+            exit={{ opacity: 0, y: -14, scale: 0.96 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="absolute z-50 hidden lg:block top-10 right-10"
           >
-            <nav className="flex h-[53px] items-center gap-[18px]">
+            <nav className="flex items-center gap-6 h-14">
               {NAV_ITEMS.map((item, index) => (
                 <motion.button
                   key={item.id}
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.05 }}
+                  transition={{ delay: 0.15 + index * 0.05 }}
                   onClick={() => scrollToSection(item.id)}
-                  className="
-                    h-[53px]
-                    rounded-full
-                    bg-white/20
-                    px-8
-                    text-[24px]
-                    text-white
-                    backdrop-blur-md
-                    transition
-                    hover:bg-white/30
-                  "
+                  className={`h-14 px-8 text-2xl rounded-full transition
+                    ${
+                      activeId === item.id
+                        ? "bg-white text-black shadow-xl"
+                        : "bg-white/20 text-white backdrop-blur-md hover:bg-white/30"
+                    }`}
                 >
                   {item.label}
                 </motion.button>
@@ -71,69 +81,84 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* ================= MOBILE HAMBURGER ================= */}
-      <AnimatePresence>
-        {visible && (
-          <motion.header
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="absolute z-30 right-6 top-6 lg:hidden"
-          >
-            <button
-              onClick={() => setOpen(true)}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-md"
-            >
-              <div className="flex flex-col gap-1">
-                <span className="h-[2px] w-6 bg-white" />
-                <span className="h-[2px] w-6 bg-white" />
-                <span className="h-[2px] w-6 bg-white" />
-              </div>
-            </button>
-          </motion.header>
-        )}
-      </AnimatePresence>
-
-      {/* ================= MOBILE MENU ================= */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
+      {/* ================= MOBILE HAMBURGER + CARD MENU ================= */}
+      <motion.header
+        className="fixed z-50 right-6 top-6 lg:hidden"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25 }}
+      >
+        <div className="relative">
+          {/* HAMBURGER */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="flex items-center justify-center w-12 h-12 border rounded-full shadow-lg bg-slate-900/80 backdrop-blur-md border-white/20"
           >
             <motion.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className="flex flex-col items-center justify-center h-full gap-8"
+              className="relative w-6 h-6"
+              initial={false}
+              animate={open ? "open" : "closed"}
             >
-              {NAV_ITEMS.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 12 }}
-                  transition={{ delay: index * 0.08 }}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-[32px] text-white hover:opacity-70"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
-
-              <button
-                onClick={() => setOpen(false)}
-                className="mt-10 text-xl text-white/70"
-              >
-                ✖
-              </button>
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: -8 },
+                  open: { rotate: 45, y: 0 },
+                }}
+                className="absolute left-0 top-1/2 h-0.5 w-6 bg-white"
+              />
+              <motion.span
+                variants={{
+                  closed: { opacity: 1 },
+                  open: { opacity: 0 },
+                }}
+                className="absolute left-0 top-1/2 h-0.5 w-6 bg-white"
+              />
+              <motion.span
+                variants={{
+                  closed: { rotate: 0, y: 8 },
+                  open: { rotate: -45, y: 0 },
+                }}
+                className="absolute left-0 top-1/2 h-0.5 w-6 bg-white"
+              />
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </button>
+
+          {/* MOBILE MENU CARD */}
+          <AnimatePresence>
+            {open && (
+              <motion.nav
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="absolute right-0 w-56 py-4 mt-4 bg-white shadow-2xl rounded-xl"
+              >
+                <ul className="flex flex-col">
+                  {NAV_ITEMS.map((item, i) => (
+                    <motion.li
+                      key={item.id}
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.07 }}
+                    >
+                      <button
+                        onClick={() => scrollToSection(item.id)}
+                        className={`w-full px-6 py-3 text-left transition
+                          ${
+                            activeId === item.id
+                              ? "bg-blue-50 font-semibold text-blue-600"
+                              : "text-slate-700 hover:bg-slate-100"
+                          }`}
+                      >
+                        {item.label}
+                      </button>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.nav>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.header>
     </>
   );
 }

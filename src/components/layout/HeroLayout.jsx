@@ -12,58 +12,44 @@ export default function HeroLayout({ children }) {
     const prev = scrollY.getPrevious();
 
     if (latest > prev && latest > 100) {
-      // scroll ke bawah → hide background
       setVisible(false);
     } else if (latest < prev && !visible) {
-      // scroll ke atas → re-trigger animation
       setVisible(true);
       setKey((k) => k + 1);
     }
   });
 
   return (
-    <section
-      className="
-        relative
-        bg-black
-        text-white
-        font-poppins
-        overflow-hidden
-        lg:h-[969px]
-      "
-    >
-      {/* DESKTOP BACKGROUND */}
-      <motion.img
-        key={`desktop-${key}`}
-        src={bgHero}
-        alt="Hero Background"
-        draggable={false}
-        initial={{ opacity: 0, scale: 1.08 }}
-        animate={visible ? { opacity: 1, scale: 1 } : { opacity: 0 }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
-        className="absolute inset-0 hidden object-cover w-full h-full lg:block"
-      />
+    <section className="relative w-full min-h-screen overflow-hidden bg-black font-poppins">
+      {/* ===== BACKGROUND WRAPPER (ANTI OVERFLOW) ===== */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* DESKTOP */}
+        <motion.img
+          key={`desktop-${key}`}
+          src={bgHero}
+          alt="Hero Background"
+          draggable={false}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: visible ? 1 : 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute inset-0 hidden object-cover w-full h-full pointer-events-none lg:block"
+        />
 
-      {/* MOBILE BACKGROUND */}
-      <motion.img
-        key={`mobile-${key}`}
-        src={bgHeroMobile}
-        alt="Hero Background Mobile"
-        draggable={false}
-        initial={{ opacity: 0, scale: 1.08 }}
-        animate={visible ? { opacity: 1, scale: 1 } : { opacity: 0 }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
-        className="absolute inset-0 block object-cover w-full h-full lg:hidden"
-      />
+        {/* MOBILE */}
+        <motion.img
+          key={`mobile-${key}`}
+          src={bgHeroMobile}
+          alt="Hero Background Mobile"
+          draggable={false}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: visible ? 1 : 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="absolute inset-0 block object-cover w-full h-full pointer-events-none lg:hidden"
+        />
+      </div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 h-full">
+      {/* ===== CONTENT ===== */}
+      <div className="relative z-10 flex flex-col w-full min-h-screen">
         {children}
       </div>
     </section>
