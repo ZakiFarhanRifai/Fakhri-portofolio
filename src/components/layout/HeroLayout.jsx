@@ -20,7 +20,7 @@ export default function HeroLayout({ children }) {
   });
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-black font-poppins">
+    <section className="relative w-full min-h-screen overflow-visible bg-black font-poppins">
       {/* ===== BACKGROUND WRAPPER (ANTI OVERFLOW) ===== */}
       <div className="absolute inset-0 overflow-hidden">
         {/* DESKTOP */}

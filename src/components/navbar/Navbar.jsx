@@ -56,7 +56,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -14, scale: 0.96 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="absolute z-50 hidden lg:block top-10 right-10"
+            className="absolute hidden lg:block top-10 right-10 z-[9999]"
           >
             <nav className="flex items-center gap-6 h-14">
               {NAV_ITEMS.map((item, index) => (

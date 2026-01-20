@@ -19,20 +19,18 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div className="relative w-full overflow-hidden">
       <HeroLayout>
         <Navbar />
         <HeroContent />
         <ScrollIndicator />
       </HeroLayout>
 
-
-
       <AboutSection />
       <SkillsSection />
       <ExperienceSection />
       <ContactSection />
       <Footer />
-    </>
+    </div>
   );
 }

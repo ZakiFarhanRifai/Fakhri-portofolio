@@ -62,7 +62,7 @@ export default function SkillsSection() {
         whileInView="show"
         viewport={{ once: false, amount: 0.3 }}
         className="
-          relative z-10
+          relative
           mx-auto max-w-[1440px]
           py-[120px]
           px-[120px]

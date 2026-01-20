@@ -97,7 +97,15 @@ export default function HeroContent() {
         }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
-        className="w-full max-w-xs overflow-hidden sm:max-w-sm"
+        className="
+    overflow-hidden
+
+    w-[140px]
+    sm:w-[180px]
+    md:w-[220px]
+
+    mx-auto
+  "
       >
         <img
           src={letsTalk}
