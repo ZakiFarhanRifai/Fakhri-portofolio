@@ -43,8 +43,8 @@ export default function ExperienceContent() {
         image: certUIUX,
       },
       {
-        title: "PKL Web Development",
-        issuer: "PT. XYZ",
+        title: "PKL Visual Desain",
+        issuer: "Arum Sari Corporation",
         image: certWeb,
       },
     ],

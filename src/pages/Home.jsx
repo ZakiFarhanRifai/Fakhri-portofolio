@@ -10,6 +10,7 @@ import SkillsSection from "../components/skills/SkillsSection";
 import ExperienceSection from "../components/experience/ExperienceSection";
 import ContactSection from "../components/contact/ContactSection";
 import Footer from "../components/footer/Footer";
+import BackTop from "../components/backtop/BackTop";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ export default function Home() {
       <ExperienceSection />
       <ContactSection />
       <Footer />
+      <BackTop />
     </div>
   );
 }

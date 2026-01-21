@@ -117,15 +117,15 @@ export default function ContactSection() {
             {/* SOCIAL ICONS */}
             <div className="flex gap-4">
               <SocialIcon
-                href="https://wa.me/6281414257998"
+                href="https://wa.me/6285799830623"
                 icon={<FaWhatsapp size={20} />}
               />
               <SocialIcon
-                href="https://instagram.com/username"
+                href="https://www.instagram.com/fkhr1_?igsh=MTQzbGI2ZDJzcWhxMg=="
                 icon={<FaInstagram size={20} />}
               />
               <SocialIcon
-                href="https://x.com/username"
+                href="https://x.com/fkhr1_"
                 icon={<FaXTwitter size={18} />}
               />
             </div>

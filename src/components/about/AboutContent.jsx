@@ -59,18 +59,19 @@ export default function AboutContent() {
                 variants={item}
                 className="mb-6 text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl"
               >
-                Normal Human with
-                <br className="hidden sm:block" />
-                Great Creativity
+                  Hi, I Am Fakhri
               </motion.h2>
 
-              <motion.p
-                variants={item}
-                className="mb-8 text-base font-light leading-relaxed sm:text-lg"
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </motion.p>
+<motion.p
+  variants={item}
+  className="mb-8 text-base font-light leading-relaxed sm:text-lg"
+>
+  I am a <span className="font-medium">UI/UX Designer</span> focused on creating
+  intuitive and visually engaging digital experiences, with experience across
+  social media, procurement, and healthcare industries. I work with Figma,
+  Canva, Photoshop, and have basic skills in HTML, CSS, JavaScript, and Python.
+</motion.p>
+
 
               <motion.div variants={item} className="flex justify-center lg:justify-start">
                 <motion.button
@@ -140,7 +141,7 @@ export default function AboutContent() {
                   onClick={() => setOpenCV(false)}
                   className="flex items-center justify-center px-6 py-2 text-sm font-medium text-black transition border border-black rounded-full hover:bg-black hover:text-white"
                 >
-                  Kembali
+                  Close
                 </button>
               </div>
             </motion.div>
