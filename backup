@@ -49,20 +49,32 @@ export default function ContactSection() {
       }).then((res) => res.json());
 
       if (res.success) {
-        Swal.fire("Success", "Your message has been sent", "success");
+        Swal.fire({
+          title: "Success",
+          text: "Your message has been sent",
+          icon: "success",
+        });
         setForm({ name: "", email: "", message: "" });
       } else {
-        Swal.fire("Failed", "Message failed to send", "error");
+        Swal.fire({
+          title: "Failed",
+          text: "Message failed to send",
+          icon: "error",
+        });
       }
     } catch {
-      Swal.fire("Error", "Something went wrong", "error");
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong",
+        icon: "error",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="relative flex items-center py-20 bg-black md:min-h-screen">
+    <section className="relative min-h-screen bg-black py-28">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -85,11 +97,11 @@ export default function ContactSection() {
                 transition: { duration: 0.7, ease: "easeOut" },
               },
             }}
-            className="text-center md:text-left"
+            className="flex flex-col items-center mt-10 text-center md:mt-16 md:items-start md:text-left"
           >
-            <span className="flex items-center justify-center gap-4 mb-4 text-xs tracking-widest text-gray-400 uppercase md:justify-start">
+            <span className="flex items-center gap-4 mb-4 text-xs tracking-widest text-gray-400 uppercase">
               Get In Touch
-              <span className="w-16 h-px bg-gray-600" />
+              <span className="w-20 h-px bg-gray-600" />
             </span>
 
             <h2 className="mb-6 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
@@ -97,18 +109,19 @@ export default function ContactSection() {
               <span className="block text-gray-400">Together</span>
             </h2>
 
-            <p className="max-w-md mx-auto mb-10 text-sm leading-relaxed text-gray-400 md:mx-0">
+            <p className="max-w-md mb-10 text-sm leading-relaxed text-gray-400">
               Have a project in mind or just want to say hello?
               Feel free to reach out. I’m always open to discussing new ideas.
             </p>
 
-            <div className="flex justify-center gap-4 md:justify-start">
+            {/* SOCIAL ICONS */}
+            <div className="flex gap-4">
               <SocialIcon
                 href="https://wa.me/6285799830623"
                 icon={<FaWhatsapp size={20} />}
               />
               <SocialIcon
-                href="https://www.instagram.com/fkhr1_"
+                href="https://www.instagram.com/fkhr1_?igsh=MTQzbGI2ZDJzcWhxMg=="
                 icon={<FaInstagram size={20} />}
               />
               <SocialIcon
@@ -203,9 +216,7 @@ const Input = ({ name, placeholder, value, onChange, error }) => (
       onChange={onChange}
       placeholder={placeholder}
       className={`w-full rounded-md border bg-transparent px-4 py-3 text-sm text-white outline-none
-      placeholder:text-gray-500 ${
-        error ? "border-red-500" : "border-gray-600"
-      }`}
+      placeholder:text-gray-500 ${error ? "border-red-500" : "border-gray-600"}`}
     />
     {error && <p className="text-xs text-red-500">{error}</p>}
   </div>
@@ -220,9 +231,7 @@ const Textarea = ({ name, placeholder, value, onChange, error }) => (
       onChange={onChange}
       placeholder={placeholder}
       className={`w-full resize-none rounded-md border bg-transparent px-4 py-3 text-sm text-white outline-none
-      placeholder:text-gray-500 ${
-        error ? "border-red-500" : "border-gray-600"
-      }`}
+      placeholder:text-gray-500 ${error ? "border-red-500" : "border-gray-600"}`}
     />
     {error && <p className="text-xs text-red-500">{error}</p>}
   </div>
