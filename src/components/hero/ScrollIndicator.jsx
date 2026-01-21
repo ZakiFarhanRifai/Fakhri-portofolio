@@ -2,15 +2,17 @@ import downArrow from "../../assets/down-arrow.svg";
 
 export default function ScrollIndicator() {
   return (
-    <div
+    <a
+      href="#about"
       className="
         absolute
         bottom-[-76px]
         left-1/2
         -translate-x-1/2
         z-[999]
-        pointer-events-none
+        pointer-events-auto
         select-none
+        cursor-pointer
       "
     >
       <img
@@ -19,6 +21,6 @@ export default function ScrollIndicator() {
         className="w-[188px] h-[152px]"
         draggable={false}
       />
-    </div>
+    </a>
   );
 }

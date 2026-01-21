@@ -2,6 +2,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import letsTalk from "../../assets/let's-talk.svg";
 
+/* ===== ANIMATION VARIANTS ===== */
 const container = {
   hidden: {},
   show: {
@@ -23,10 +24,13 @@ export default function HeroContent() {
   const [visible, setVisible] = useState(true);
   const [key, setKey] = useState(0);
 
+  /* ===== SHOW / HIDE HERO ON SCROLL ===== */
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious();
-    if (latest > prev && latest > 80) setVisible(false);
-    else if (latest < prev && !visible) {
+
+    if (latest > prev && latest > 80) {
+      setVisible(false);
+    } else if (latest < prev && !visible) {
       setVisible(true);
       setKey((k) => k + 1);
     }
@@ -40,7 +44,7 @@ export default function HeroContent() {
       animate={visible ? "show" : "hidden"}
       className="relative flex flex-col items-center justify-center w-full max-w-full min-h-screen px-6 overflow-hidden text-center "
     >
-      {/* SUBTITLE */}
+      {/* ===== SUBTITLE ===== */}
       <motion.p
         variants={item}
         className="
@@ -56,7 +60,7 @@ export default function HeroContent() {
         HI, I AM FAKHRI
       </motion.p>
 
-      {/* TITLE */}
+      {/* ===== TITLE ===== */}
       <motion.h1
         variants={item}
         className="
@@ -75,7 +79,7 @@ export default function HeroContent() {
         UI/UX DESIGNER
       </motion.h1>
 
-      {/* DESCRIPTION */}
+      {/* ===== DESCRIPTION ===== */}
       <motion.p
         variants={item}
         className="max-w-xl mb-10 text-sm sm:text-base md:text-lg text-white/80"
@@ -85,8 +89,9 @@ export default function HeroContent() {
         design for all your needs
       </motion.p>
 
-      {/* BUTTON */}
-      <motion.button
+      {/* ===== LET'S TALK BUTTON ===== */}
+      <motion.a
+        href="#contact"
         variants={{
           hidden: { opacity: 0, scale: 0.96 },
           show: {
@@ -98,14 +103,13 @@ export default function HeroContent() {
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
         className="
-    overflow-hidden
-
-    w-[140px]
-    sm:w-[180px]
-    md:w-[220px]
-
-    mx-auto
-  "
+          overflow-hidden
+          w-[140px]
+          sm:w-[180px]
+          md:w-[220px]
+          mx-auto
+          cursor-pointer
+        "
       >
         <img
           src={letsTalk}
@@ -113,7 +117,7 @@ export default function HeroContent() {
           draggable={false}
           className="w-full h-auto"
         />
-      </motion.button>
+      </motion.a>
     </motion.main>
   );
 }
