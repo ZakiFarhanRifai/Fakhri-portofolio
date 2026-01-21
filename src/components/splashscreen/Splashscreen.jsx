@@ -2,17 +2,27 @@ import { useEffect, useState } from "react";
 
 export default function Splashscreen({ onFinish }) {
   const [animateOut, setAnimateOut] = useState(false);
+  const [randomText, setRandomText] = useState("");
+
+  const texts = [
+    "Tunggu sebentar ya, lagi disiapkan yang terbaik ✨",
+    "Sedang memuat pengalaman terbaik untuk kamu 🚀",
+    "Hampir selesai, jangan ke mana-mana ya 👀",
+    "Lagi nyiapin sesuatu yang keren nih 😎",
+    "Sedikit lagi… sabar ya, worth it kok 🔥",
+    "Sistem sedang bekerja, mohon tunggu sebentar ⏳",
+  ];
 
   useEffect(() => {
-    // mulai animasi membesar
+    setRandomText(texts[Math.floor(Math.random() * texts.length)]);
+
     const start = setTimeout(() => {
       setAnimateOut(true);
     }, 3000);
 
-    // splashscreen selesai setelah animasi
     const end = setTimeout(() => {
       onFinish();
-    }, 3500); // 3 detik + 0.5 detik animasi
+    }, 3500);
 
     return () => {
       clearTimeout(start);
@@ -21,9 +31,9 @@ export default function Splashscreen({ onFinish }) {
   }, [onFinish]);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-black">
-      
-      {/* CIRCLE LOGO */}
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+
+      {/* LOGO (ONLY THIS SCALES) */}
       <div
         className={`
           flex items-center justify-center
@@ -37,13 +47,25 @@ export default function Splashscreen({ onFinish }) {
         </span>
       </div>
 
-      {/* LOADING */}
-      {!animateOut && (
-        <svg
-          className="w-8 h-8"
-          fill="white"
-          viewBox="0 0 24 24"
-        >
+      {/* TEXT (FADE OUT, NO SCALE) */}
+      <span
+        className={`
+          mt-6 text-sm text-white/80 text-center px-6
+          transition-all duration-300 ease-in-out
+          ${animateOut ? "opacity-0 translate-y-2" : "opacity-100"}
+        `}
+      >
+        {randomText}
+      </span>
+
+      {/* LOADING ICON (FADE OUT) */}
+      <div
+        className={`
+          mt-4 transition-all duration-300 ease-in-out
+          ${animateOut ? "opacity-0 translate-y-2" : "opacity-100"}
+        `}
+      >
+        <svg className="w-8 h-8" fill="white" viewBox="0 0 24 24">
           <g>
             {[...Array(12)].map((_, i) => (
               <circle
@@ -70,7 +92,7 @@ export default function Splashscreen({ onFinish }) {
             />
           </g>
         </svg>
-      )}
+      </div>
     </div>
   );
 }
