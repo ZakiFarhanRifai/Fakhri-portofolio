@@ -1,26 +1,36 @@
+import { motion } from "framer-motion";
 import downArrow from "../../assets/down-arrow.svg";
 
 export default function ScrollIndicator() {
   return (
-    <a
-      href="#about"
+    <div
       className="
         absolute
         bottom-[-76px]
-        left-1/2
-        -translate-x-1/2
+        inset-x-0
         z-[999]
-        pointer-events-auto
-        select-none
-        cursor-pointer
+        flex
+        justify-center
+        pointer-events-none
       "
     >
-      <img
-        src={downArrow}
-        alt="Scroll down"
-        className="w-[188px] h-[152px]"
-        draggable={false}
-      />
-    </a>
+      <motion.a
+        href="#about"
+        className="cursor-pointer pointer-events-auto select-none"
+        animate={{ y: [0, -14, 0] }}
+        transition={{
+          duration: 1.8,
+          ease: "easeInOut",
+          repeat: Infinity,
+        }}
+      >
+        <img
+          src={downArrow}
+          alt="Scroll down"
+          className="w-[188px] h-[152px]"
+          draggable={false}
+        />
+      </motion.a>
+    </div>
   );
 }
