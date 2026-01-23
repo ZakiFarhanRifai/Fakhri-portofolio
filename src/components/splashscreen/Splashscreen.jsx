@@ -32,7 +32,6 @@ export default function Splashscreen({ onFinish }) {
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
-
       {/* LOGO (ONLY THIS SCALES) */}
       <div
         className={`
@@ -42,9 +41,7 @@ export default function Splashscreen({ onFinish }) {
           ${animateOut ? "w-56 h-56 scale-125" : "w-32 h-32 animate-pulse"}
         `}
       >
-        <span className="text-5xl font-bold tracking-wide text-white">
-          F
-        </span>
+        <span className="text-5xl font-bold tracking-wide text-white">F</span>
       </div>
 
       {/* TEXT (FADE OUT, NO SCALE) */}
