@@ -32,7 +32,7 @@ export default function ExperienceContent() {
         date: "2018 - 2021",
       },
       {
-        title: "SMP Telkom Purwokerto",
+        title: "SMK Telkom Purwokerto",
         date: "2021 – 2024",
       },
     ],

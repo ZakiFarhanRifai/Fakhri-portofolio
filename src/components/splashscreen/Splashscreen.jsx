@@ -5,12 +5,15 @@ export default function Splashscreen({ onFinish }) {
   const [randomText, setRandomText] = useState("");
 
   const texts = [
-    "Tunggu sebentar ya, lagi disiapkan yang terbaik ✨",
-    "Sedang memuat pengalaman terbaik untuk kamu 🚀",
-    "Hampir selesai, jangan ke mana-mana ya 👀",
+    "Bentar... racikan terbaik sedang diproses! 🧪",
+    "Santai dulu, kreasi spesial lagi otw ke kamu ☕",
+    "Dikit lagi kelar, jangan berkedip dulu ya 😉",
     "Lagi nyiapin sesuatu yang keren nih 😎",
     "Sedikit lagi… sabar ya, worth it kok 🔥",
-    "Sistem sedang bekerja, mohon tunggu sebentar ⏳",
+    "Di balik layar, sesuatu yang epik lagi dirakit 🛠️",
+    "Sabar ya, hal indah memang butuh waktu 🌸",
+    "Tenang, sistem kami sedang merajut kebahagiaanmu 🧵",
+    "Sedang menjemput data terbaik khusus buat kamu 📡",
   ];
 
   useEffect(() => {
