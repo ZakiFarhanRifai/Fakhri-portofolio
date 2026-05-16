@@ -22,11 +22,13 @@ export default function ContactSection() {
     e.preventDefault();
 
     const newErrors = {};
+
     if (!form.name.trim()) newErrors.name = "Name is required";
     if (!form.email.trim()) newErrors.email = "Email is required";
     if (!form.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
+
     if (Object.keys(newErrors).length !== 0) return;
 
     setLoading(true);
@@ -54,7 +56,12 @@ export default function ContactSection() {
           text: "Your message has been sent",
           icon: "success",
         });
-        setForm({ name: "", email: "", message: "" });
+
+        setForm({
+          name: "",
+          email: "",
+          message: "",
+        });
       } else {
         Swal.fire({
           title: "Failed",
@@ -74,56 +81,69 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="relative min-h-screen bg-black py-28">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: false, amount: 0.3 }}
-        variants={{
-          hidden: {},
-          show: { transition: { staggerChildren: 0.25 } },
-        }}
-        className="container px-4 mx-auto md:px-16"
-      >
-        <div className="grid items-start grid-cols-1 gap-16 md:grid-cols-2">
-
-          {/* LEFT */}
+    <section
+      id="contact"
+      className="py-24 bg-black"
+    >
+      <div className="px-6 mx-auto max-w-7xl lg:px-12">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+          className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2"
+        >
+          {/* LEFT SIDE */}
           <motion.div
             variants={{
               hidden: { opacity: 0, x: -40 },
               show: {
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.7, ease: "easeOut" },
+                transition: {
+                  duration: 0.7,
+                  ease: "easeOut",
+                },
               },
             }}
-            className="flex flex-col items-center mt-10 text-center md:mt-16 md:items-start md:text-left"
+            className="flex flex-col items-center justify-center text-center  lg:text-left lg:items-start"
           >
-            <span className="flex items-center gap-4 mb-4 text-xs tracking-widest text-gray-400 uppercase">
+            <span className="flex items-center gap-4 mb-6 text-xs tracking-[0.3em] uppercase text-gray-400">
               Get In Touch
               <span className="w-20 h-px bg-gray-600" />
             </span>
 
-            <h2 className="mb-6 text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            <h2 className="text-5xl font-bold leading-none text-white sm:text-6xl lg:text-7xl">
               Let’s Work
-              <span className="block text-gray-400">Together</span>
+              <span className="block text-gray-400">
+                Together
+              </span>
             </h2>
 
-            <p className="max-w-md mb-10 text-sm leading-relaxed text-gray-400">
+            <p className="max-w-md mt-8 text-base leading-relaxed text-gray-400">
               Have a project in mind or just want to say hello?
               Feel free to reach out. I’m always open to discussing new ideas.
             </p>
 
             {/* SOCIAL ICONS */}
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-10">
               <SocialIcon
-                href="https://wa.me/6285799830623"
+                href="https://wa.me/6285138090248"
                 icon={<FaWhatsapp size={20} />}
               />
+
               <SocialIcon
                 href="https://www.instagram.com/fkhr1_?igsh=MTQzbGI2ZDJzcWhxMg=="
                 icon={<FaInstagram size={20} />}
               />
+
               <SocialIcon
                 href="https://x.com/fkhr1_"
                 icon={<FaXTwitter size={18} />}
@@ -131,18 +151,25 @@ export default function ContactSection() {
             </div>
           </motion.div>
 
-          {/* RIGHT */}
+          {/* RIGHT SIDE */}
           <motion.div
             variants={{
               hidden: { opacity: 0, x: 40 },
               show: {
                 opacity: 1,
                 x: 0,
-                transition: { duration: 0.7, ease: "easeOut" },
+                transition: {
+                  duration: 0.7,
+                  ease: "easeOut",
+                },
               },
             }}
+            className="w-full"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
               <AnimatedField delay={0}>
                 <Input
                   name="name"
@@ -176,22 +203,24 @@ export default function ContactSection() {
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="flex justify-center md:justify-end"
+                transition={{
+                  delay: 0.3,
+                  duration: 0.5,
+                }}
+                className="flex justify-center  lg:justify-end"
               >
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-8 py-3 text-sm font-medium text-black transition bg-white rounded-full hover:scale-105 hover:bg-gray-200 active:scale-95 disabled:opacity-50"
+                  className="px-10 py-4 text-sm font-medium text-black transition-all duration-300 bg-white rounded-full hover:scale-105 hover:bg-gray-200 active:scale-95 disabled:opacity-50"
                 >
                   {loading ? "Sending..." : "Send Message"}
                 </button>
               </motion.div>
             </form>
           </motion.div>
-
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -202,38 +231,75 @@ const AnimatedField = ({ children, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, ease: "easeOut", delay }}
+    transition={{
+      duration: 0.5,
+      ease: "easeOut",
+      delay,
+    }}
   >
     {children}
   </motion.div>
 );
 
-const Input = ({ name, placeholder, value, onChange, error }) => (
-  <div className="space-y-1">
+const Input = ({
+  name,
+  placeholder,
+  value,
+  onChange,
+  error,
+}) => (
+  <div className="space-y-2">
     <input
+      type="text"
       name={name}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`w-full rounded-md border bg-transparent px-4 py-3 text-sm text-white outline-none
-      placeholder:text-gray-500 ${error ? "border-red-500" : "border-gray-600"}`}
+      className={`w-full rounded-xl border bg-transparent px-5 py-4 text-sm text-white outline-none transition-all
+      placeholder:text-gray-500 focus:border-white
+      ${
+        error
+          ? "border-red-500"
+          : "border-gray-700"
+      }`}
     />
-    {error && <p className="text-xs text-red-500">{error}</p>}
+
+    {error && (
+      <p className="text-xs text-red-500">
+        {error}
+      </p>
+    )}
   </div>
 );
 
-const Textarea = ({ name, placeholder, value, onChange, error }) => (
-  <div className="space-y-1">
+const Textarea = ({
+  name,
+  placeholder,
+  value,
+  onChange,
+  error,
+}) => (
+  <div className="space-y-2">
     <textarea
       rows={6}
       name={name}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`w-full resize-none rounded-md border bg-transparent px-4 py-3 text-sm text-white outline-none
-      placeholder:text-gray-500 ${error ? "border-red-500" : "border-gray-600"}`}
+      className={`w-full resize-none rounded-xl border bg-transparent px-5 py-4 text-sm text-white outline-none transition-all
+      placeholder:text-gray-500 focus:border-white
+      ${
+        error
+          ? "border-red-500"
+          : "border-gray-700"
+      }`}
     />
-    {error && <p className="text-xs text-red-500">{error}</p>}
+
+    {error && (
+      <p className="text-xs text-red-500">
+        {error}
+      </p>
+    )}
   </div>
 );
 
@@ -242,9 +308,9 @@ const SocialIcon = ({ href, icon }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    whileHover={{ scale: 1.15 }}
+    whileHover={{ scale: 1.12 }}
     whileTap={{ scale: 0.95 }}
-    className="flex items-center justify-center text-black transition bg-white rounded-full shadow-md h-11 w-11 hover:shadow-lg"
+    className="flex items-center justify-center w-12 h-12 text-black transition-all duration-300 bg-white rounded-full hover:bg-gray-200"
   >
     {icon}
   </motion.a>

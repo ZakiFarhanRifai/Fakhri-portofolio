@@ -16,24 +16,24 @@ export default function ExperienceContent() {
         date: "April - September 2023",
       },
       {
-        title: "PT. Alka Sejahtera Abadi",
+        title: "Freelance di PT.Alka Sejahtera Abadi",
         role: "Internship Pengadaan Barang & Jasa dan Event Organizer",
-        date: "November - Februari 2025",
+        date: "November 2024 - Februari 2025",
       },
       {
-        title: "Medika Plaza International Healthcare",
+        title: "Intership di Medika Plaza International Healthcare ",
         role: "Internship Claim Analyst",
-        date: "Maret - Sekarang 2026",
+        date: "Maret 2025 - Mei 2026",
       },
     ],
     education: [
       {
-        title: "SMK Telkom Purwokerto",
-        date: "2021 - 2024",
+        title: "SMP Telkom Purwokerto",
+        date: "2018 - 2021",
       },
       {
         title: "SMP Telkom Purwokerto",
-        date: "2018 – 2021",
+        date: "2021 – 2024",
       },
     ],
     certificate: [
